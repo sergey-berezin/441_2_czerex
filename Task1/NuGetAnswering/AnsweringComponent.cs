@@ -44,6 +44,7 @@ public class AnsweringComponent
     private static InferenceSession session;
     private static string modelUrl;
     private static string modelPath;
+    private readonly object locker  = new object();
     IProgress<string>? progress;
     CancellationToken cancelToken;
     public AnsweringComponent(string modelUrlTemp, string modelPathTemp, CancellationToken cancelTokenTemp = default)
@@ -99,7 +100,10 @@ public class AnsweringComponent
 
         // Run session and send the input data in to get inference output. 
         cancelToken.ThrowIfCancellationRequested();
-        var output = session.Run(input);
+        IDisposableReadOnlyCollection<DisposableNamedOnnxValue>? output;
+        lock(locker){
+            output = session.Run(input);
+        }
         cancelToken.ThrowIfCancellationRequested();
         // Call ToList on the output.
         // Get the First and Last item in the list.
