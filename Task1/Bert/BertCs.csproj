@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Daria.AnswerComponent" Version="0.1.1809.1237" />
+    <PackageReference Include="Daria.AnswerComponent" Version="0.1.1809.1244" />
     <PackageReference Include="BERTTokenizers" Version="1.1.0" />
     <PackageReference Include="Microsoft.ML" Version="2.0.1" />
     <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.12.0" />

@@ -18,7 +18,7 @@ class Program
         string modelPath = "bert-large-uncased-whole-word-masking-finetuned-squad.onnx";
         var answerTask = new AnsweringComponent(modelUrl, modelPath, cancelToken);
         await answerTask.Create(new ConsoleProgress());
-
+        var tasks = new List<Task>();
         while(!cancelToken.IsCancellationRequested)
         {
             Console.Write("Ask a question or press enter to exit: ");
@@ -27,11 +27,11 @@ class Program
             if (string.IsNullOrWhiteSpace(question))
                 cts.Cancel();
 
-            string answer = await answerTask.GetAnswerAsync(text, question);
-
-            Console.WriteLine(answer);
+            var task = answerTask.GetAnswerAsync(text, question).ContinueWith(task=>{Console.WriteLine(question + " : " + task.Result);});
+            tasks.Add(task);
 
         }
+        await Task.WhenAll(tasks);
         
     
     }
