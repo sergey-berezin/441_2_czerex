@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DockPanel Name ="DockPanelName">
+        <DockPanel x:Name ="DockPanelName">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -18,10 +18,10 @@
                     <TextBlock x:Name="fileContentBlock" TextWrapping="Wrap"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
-                    <TextBox Name="questionBox" Text="Ask a question"/>
-                    <Button Content="Get answer" Width="87" Click="GetAnswerClick"/>
-                    <Button Content="Cancel" Width="87" Click="CancelClick"/>
-                    <TextBlock Name="answerBlock" TextWrapping="Wrap"/>
+                    <TextBox x:Name ="questionBox" Text="Ask a question"/>
+                    <Button x:Name ="answerButton"  Content="Get answer" Width="87" Click="GetAnswerClick"/>
+                    <Button x:Name ="cancelButton" Content="Cancel" Width="87" Click="CancelClick"/>
+                    <TextBlock x:Name ="answerBlock" TextWrapping="Wrap"/>
                 </StackPanel>
             </Grid>
         </DockPanel>

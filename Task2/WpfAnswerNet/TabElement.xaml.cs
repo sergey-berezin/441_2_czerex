@@ -33,7 +33,7 @@ namespace WpfAnswerNet
             InitializeComponent();
             answerTask = answerTaskTemp;
             cts = ctsTemp;
-           
+            cancelButton.IsEnabled = false;
         }
         private void OpenFileButton_Click(object sender, RoutedEventArgs e)
         {
@@ -44,7 +44,6 @@ namespace WpfAnswerNet
             {
                 string filePath = openFileDialog.FileName;
                 string fileContents = File.ReadAllText(filePath);  
-                TextBlock fileContentBlock = FindName("fileContentBlock") as TextBlock;
                 fileContentBlock.Text = fileContents;
                 
             }
@@ -56,9 +55,8 @@ namespace WpfAnswerNet
 
         private async void GetAnswerClick(object sender, RoutedEventArgs e)
         {
-           // CancellationTokenSource cts = new CancellationTokenSource();
-            TextBlock fileContentBlock = FindName("fileContentBlock") as TextBlock;
-            TextBox questionBox =FindName("questionBox") as TextBox;
+            cancelButton.IsEnabled = true;
+            answerButton.IsEnabled = false;
             string text = fileContentBlock.Text;
             string question = questionBox.Text;
             if (text.Length == 0)
@@ -72,11 +70,11 @@ namespace WpfAnswerNet
             else
             {
                 var answer = await answerTask.GetAnswerAsync(text, question, cts.Token);
-
-                TextBlock answerBlock = FindName("answerBlock") as TextBlock;
                 answerBlock.Text = answer;
             }
-         //   cts.Dispose();
+            cancelButton.IsEnabled = false;
+            answerButton.IsEnabled =true;
+   
         }
       
     }
