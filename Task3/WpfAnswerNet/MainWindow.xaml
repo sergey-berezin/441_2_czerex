@@ -1,0 +1,20 @@
+﻿<Window x:Class="WpfAnswerNet.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAnswerNet"
+        mc:Ignorable="d"
+        Title="Tabbed Text Editor" Height="450" Width="800">
+    <Grid>
+        <DockPanel Name ="DockPanelName">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button Content="New Tab" Width="75" Click="NewTabButton_Click"/>
+                <Button Content="Clear Database" Width="91" Click="ClearDatabase_Click"/>
+            </StackPanel>
+            <TabControl Name="TabControl1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window>
