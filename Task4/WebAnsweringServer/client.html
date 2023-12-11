@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8" />
+    <title>Answering Web App</title>  
+</head>
+<body>
+    <h1>Answering Web App</h1>
+    <textarea id="textInput"  placeholder="Enter text" rows="4" cols="50" aria-label="a"></textarea><br>
+    <button onclick="sendText(event)">Send text </button>
+    <br>
+    <br>
+    <input id="questionInput" placeholder="Enter your question">
+    <br>
+    <button onclick="getAnswer(event)">Get Answer</button>
+    <div id="indicator" style="display:none;">Loading...</div>
+    <div id="output"></div>
+    <script type="text/javascript">
+        let textId = "";
+        async function sendText(event) {
+            const text = document.getElementById('textInput').value;
+            await fetch("https://localhost:7177/api/Text", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify( text ),
+           })
+               .then(response => {return  response.json();})
+               .then(result=>{
+                textId=result;
+                console.log(textId)})
+            return;        
+        }
+
+        async function getAnswer(event) {
+            if (textId.length == 0){
+                alert("Please send text")
+                return;
+            }
+            
+            const question = document.getElementById('questionInput').value;
+            if (question.length == 0){
+                alert("Please ask a question")
+                return;
+            }
+            let answer;
+            document.getElementById('indicator').style.display = 'block';
+            await fetch('https://localhost:7177/api/Text?' + new URLSearchParams({
+                textId: textId,
+                question: question,
+            }))
+            .then(response => {return  response.text();})
+            .then(result=>{
+                answer=result;
+                console.log(answer)})
+            document.getElementById('indicator').style.display = 'none';
+            document.getElementById('output').innerText = 'Answer: ' + answer;
+        }</script>
+</body>
+</html>
